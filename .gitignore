@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.env
+token_cache.json
+*cache*/
+.obsidian/
+.DS_Store
+Thumbs.db
