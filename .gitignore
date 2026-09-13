@@ -6,3 +6,27 @@ token_cache.json
 .obsidian/
 .DS_Store
 Thumbs.db
+
+# Personal instances and credentials must stay outside the public engine.
+.env.*
+!.env.example
+credentials.json
+auth/
+runtime/
+private/
+reports/
+*.sqlite
+*.sqlite3
+*.sqlite3-*
+*.db
+*.db-*
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+*.dpapi
+report.html
+report.md
+report-llm.*
