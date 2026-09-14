@@ -1,0 +1,16 @@
+{
+  "scope": "connection_sample_not_marketwide",
+  "profile": {
+    "status": "review_only",
+    "KR": {"ma_period": 60, "slope_window": 5, "transition_window": 10, "rs_period": 60, "activity_window": 20, "min_rs": 0, "min_activity_ratio": 1, "min_average_value": 0},
+    "US": {"ma_period": 50, "slope_window": 5, "transition_window": 10, "rs_period": 60, "activity_window": 20, "min_rs": 0, "min_activity_ratio": 1, "min_average_value": 0}
+  },
+  "universe": [
+    {"market":"KR","symbol":"005930.KS","benchmark":"^KS11"},
+    {"market":"KR","symbol":"000660.KS","benchmark":"^KS11"},
+    {"market":"KR","symbol":"035420.KS","benchmark":"^KS11"},
+    {"market":"US","symbol":"AAPL","benchmark":"^GSPC"},
+    {"market":"US","symbol":"MSFT","benchmark":"^GSPC"},
+    {"market":"US","symbol":"NVDA","benchmark":"^GSPC"}
+  ]
+}

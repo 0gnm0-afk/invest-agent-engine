@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "source": "synthetic",
+  "as_of": "2026-09-11T14:54:12.586013+00:00",
+  "max_age_hours": 24,
+  "base_currency": "USD",
+  "fx_to_base": {
+    "USD": "1"
+  },
+  "accounts": [
+    {
+      "alias": "paper",
+      "cash": {
+        "USD": "1000"
+      },
+      "positions": [
+        {
+          "market": "US",
+          "symbol": "SYNTH",
+          "currency": "USD",
+          "quantity": "5",
+          "price": "100",
+          "average_cost": "80",
+          "adopted_stop": {
+            "price": "90",
+            "adoption_ref": "paper-stop",
+            "price_basis": "executable_raw"
+          }
+        }
+      ]
+    }
+  ],
+  "risk_capacity": {
+    "reconciled": true,
+    "source_ref": "synthetic-capacity",
+    "covered_plan_event_counts": {},
+    "reserved_loss_base": "0",
+    "instruments": {
+      "US:SYNTH": {
+        "reserved_loss_base": "0",
+        "reserved_value_base": "0"
+      }
+    },
+    "accounts": {
+      "paper": {
+        "orderable_cash": {
+          "USD": "1000"
+        },
+        "available_to_sell": {
+          "SYNTH": "5"
+        }
+      }
+    }
+  }
+}

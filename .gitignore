@@ -1,5 +1,6 @@
 __pycache__/
 *.pyc
+.venv/
 .env
 token_cache.json
 *cache*/
@@ -33,7 +34,6 @@ report-llm.*
 
 # Private instance material and accidental local exports.
 vault/
-.venv/
 holdings*.csv
 account_positions*.json
 secrets.toml

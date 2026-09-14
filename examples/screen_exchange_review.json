@@ -1,0 +1,32 @@
+{
+  "scope": "exchange_discovery_review_top100_per_exchange",
+  "profile": {
+    "status": "review_only",
+    "KR": {
+      "ma_period": 60,
+      "slope_window": 5,
+      "transition_window": 10,
+      "rs_period": 60,
+      "activity_window": 20,
+      "min_rs": 0,
+      "min_activity_ratio": 1,
+      "min_average_value": 0
+    },
+    "US": {
+      "ma_period": 50,
+      "slope_window": 5,
+      "transition_window": 10,
+      "rs_period": 60,
+      "activity_window": 20,
+      "min_rs": 0,
+      "min_activity_ratio": 1,
+      "min_average_value": 0
+    }
+  },
+  "universe_mode": "exchange_listings",
+  "markets": [
+    "KR",
+    "US"
+  ],
+  "limit_per_exchange": 100
+}

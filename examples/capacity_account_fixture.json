@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "source": "synthetic",
+  "as_of": "2026-09-11T15:04:59.018277+00:00",
+  "max_age_hours": 24,
+  "base_currency": "USD",
+  "fx_to_base": {
+    "USD": "1"
+  },
+  "accounts": [
+    {
+      "alias": "paper",
+      "cash": {
+        "USD": "1000"
+      },
+      "positions": [
+        {
+          "market": "US",
+          "symbol": "SYNTH",
+          "currency": "USD",
+          "quantity": "5",
+          "price": "100",
+          "average_cost": "80",
+          "adopted_stop": {
+            "price": "90",
+            "adoption_ref": "paper-stop",
+            "price_basis": "executable_raw"
+          }
+        }
+      ]
+    }
+  ]
+}

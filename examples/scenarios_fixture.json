@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "source": "synthetic",
+  "account_snapshot_hash": "53f0b902fc84a8493c74d1f6a877f0ac8fc48a0fe471f8da5fae9e2bc87b679b",
+  "scenarios": [
+    {
+      "scenario_id": "add",
+      "account_alias": "paper",
+      "market": "US",
+      "symbol": "SYNTH",
+      "currency": "USD",
+      "side": "buy",
+      "entry_price": "100",
+      "quantity_step": "1",
+      "split_fractions": [
+        "0.5",
+        "0.5"
+      ],
+      "cost_per_share": "0",
+      "slippage_per_share": "0",
+      "position_loss_budget_base": "100",
+      "portfolio_loss_budget_base": "150",
+      "position_value_cap_base": "1000"
+    },
+    {
+      "scenario_id": "reduce",
+      "account_alias": "paper",
+      "market": "US",
+      "symbol": "SYNTH",
+      "currency": "USD",
+      "side": "sell",
+      "entry_price": "100",
+      "quantity_step": "1",
+      "split_fractions": [
+        "0.5",
+        "0.5"
+      ],
+      "cost_per_share": "0",
+      "slippage_per_share": "0",
+      "quantity": "3"
+    }
+  ]
+}

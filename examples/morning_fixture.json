@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "source": "synthetic",
+  "observations": [
+    {"market": "KR", "exchange": "TEST_KR", "symbol": "SYNTH_KR", "session_date": "2026-09-10", "complete": true, "open": 10000, "high": 10500, "low": 9900, "close": 10400, "volume": 1000, "trading_value": 10200000, "currency": "KRW", "price_basis": "synthetic_unadjusted"},
+    {"market": "US", "exchange": "TEST_US", "symbol": "SYNTH_US", "session_date": "2026-09-10", "complete": true, "open": 100, "high": 105, "low": 99, "close": 104, "volume": 1000, "trading_value": 102000, "currency": "USD", "price_basis": "synthetic_unadjusted"}
+  ]
+}

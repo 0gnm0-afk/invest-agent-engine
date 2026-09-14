@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "account_snapshot": "capacity_account_fixture.json",
+  "order_snapshot": "capacity_orders_fixture.json",
+  "scenario_inputs": "capacity_scenarios_fixture.json"
+}

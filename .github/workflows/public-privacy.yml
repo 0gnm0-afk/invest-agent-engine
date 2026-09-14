@@ -12,4 +12,4 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
-      - run: python3 scripts/check_publication.py
+      - run: python3 -B scripts/check_git_publication.py --repo .
