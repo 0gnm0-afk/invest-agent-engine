@@ -1,0 +1,15 @@
+name: Public privacy
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  public-privacy-check:
+    name: public-privacy-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - run: python3 -B scripts/check_git_publication.py --repo .

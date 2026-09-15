@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "invest-agent-engine"
+version = "2.0.0"
+description = "Model-independent personal investment analysis engine"
+requires-python = ">=3.12"
+dependencies = [
+  "fastmcp-slim[client]>=3,<4",
+  "finance-datareader>=0.9.100",
+  "opendartreader==0.2.2",
+  "requests>=2.31,<3",
+  "exchange-calendars>=4.13.2,<5",
+  "matplotlib>=3.11,<4",
+  "markdown-it-py>=4,<5",
+]
+
+[project.scripts]
+invest-agent = "invest_agent.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "source": "synthetic",
+  "source_ref": "synthetic-orders",
+  "as_of": "2026-09-11T15:04:59.018277+00:00",
+  "account_snapshot_hash": "6a4a54796d4f3962d89310e2cd5a15d51b15af347f607638b6b910ffeb6dea12",
+  "orders_complete": true,
+  "max_snapshot_skew_seconds": 30,
+  "accounts": [
+    {
+      "alias": "paper",
+      "balance_basis": "net_of_broker_working_orders",
+      "orderable_cash": {
+        "USD": "800"
+      },
+      "available_to_sell": {
+        "US:SYNTH": "5"
+      },
+      "working_orders": [
+        {
+          "order_id": "o1",
+          "market": "US",
+          "symbol": "SYNTH",
+          "currency": "USD",
+          "side": "buy",
+          "remaining_quantity": "2",
+          "price": "100",
+          "price_basis": "executable_raw",
+          "cost_per_share": "0",
+          "slippage_per_share": "0",
+          "cash_reserved": "200",
+          "adopted_stop": {
+            "price": "90",
+            "adoption_ref": "paper-stop",
+            "price_basis": "executable_raw"
+          }
+        }
+      ]
+    }
+  ]
+}

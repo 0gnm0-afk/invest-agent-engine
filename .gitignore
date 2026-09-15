@@ -1,5 +1,6 @@
 __pycache__/
 *.pyc
+.venv/
 .env
 token_cache.json
 *cache*/
@@ -30,3 +31,14 @@ id_ed25519
 report.html
 report.md
 report-llm.*
+
+# Private instance material and accidental local exports.
+vault/
+holdings*.csv
+account_positions*.json
+secrets.toml
+*.zip
+*.tar
+*.tar.gz
+*.7z
+*.bak

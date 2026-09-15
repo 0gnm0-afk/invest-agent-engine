@@ -1,0 +1,5 @@
+{
+  "schema_version": 1,
+  "account_snapshot": "scenario_account_fixture.json",
+  "scenario_inputs": "scenarios_fixture.json"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version":1,
+  "source":"synthetic",
+  "as_of":"2026-09-11T00:00:00+00:00",
+  "max_age_hours":24,
+  "base_currency":"KRW",
+  "fx_to_base":{"KRW":"1","USD":"1400"},
+  "accounts":[
+    {"alias":"synthetic-account", "cash":{"KRW":"1000000"},
+     "positions":[
+       {"symbol":"SYNTH_US", "currency":"USD", "quantity":"10", "price":"100", "average_cost":"80",
+        "adopted_stop":{"price":"90", "adoption_ref":"synthetic-example-only", "price_basis":"executable_raw"}}
+     ]}
+  ]
+}
