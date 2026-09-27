@@ -35,7 +35,7 @@ def completed_week_bars(bars: list[dict], last_session: str) -> list[dict]:
     return output
 
 
-def draw(bars: list[dict], path: Path, title: str, ma_period: int, structure: dict | None = None, *, chart_data=None, weekly_data=None):
+def draw(bars: list[dict], path: Path, title: str, ma_period: int, structure: dict | None = None, *, chart_data=None, weekly_data=None, trend_renderer=None):
     from .structure_math import sma
     from .chart_history import DISPLAY_BARS, WEEKLY_PERIODS
     lines = ({k:v for k,v in chart_data['lines'].items() if k.startswith('D ')} if chart_data
@@ -63,7 +63,7 @@ def draw(bars: list[dict], path: Path, title: str, ma_period: int, structure: di
             price.text(.01,.98,f"Weekly history: {h['available_weeks']}/{h['required_weeks']} required",
                        transform=price.transAxes,ha='left',va='top',fontsize=8,color='#657980')
         if chart_data and 'trendlines' in chart_data:
-            trend_overlay(price, bars, offset, chart_data['trendlines'])
+            (trend_renderer or trend_overlay)(price, bars, offset, chart_data['trendlines'])
         elif structure:
             overlay(price, bars, offset, structure, ma_period)
         price.set_title(title, fontfamily=_TITLE_FONT)
