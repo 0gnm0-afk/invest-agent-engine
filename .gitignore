@@ -42,3 +42,9 @@ secrets.toml
 *.tar.gz
 *.7z
 *.bak
+
+# Build output is not a reviewed publication artifact.
+*.egg-info/
+build/
+dist/
+*.map

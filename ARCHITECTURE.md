@@ -38,3 +38,13 @@
 CLI는 신뢰한 로컬 파일을 읽는 도구입니다. 인터넷에 노출된 API 서버가 아니며 타인이 제공한
 config·DB·백업을 임의 실행/복원하는 서비스로 사용하지 않습니다. 백업 무결성 검사는 서명 인증이 아닙니다.
 과거 계산 CLI와 데이터 공급자 모듈도 호환을 위해 보존하지만 자동 아침 경로는 LLM을 호출하지 않습니다.
+
+
+## v2.2.0 additive observation calculators
+
+- `trading/momentum_entry.py`: completed bars, price/volume geometry, explicit RS and market inputs; returns conditions and rejection reasons.
+- `trading/momentum_watch.py`: pre-entry watch/ready observations; preserves strict entry events.
+- `trading/base_structure.py`: independent bottom/pullback observations and false-positive checks.
+- `research/synthetic_watch.py` and `research/watch_review.py`: invented inputs and an offline HTML/JSON demonstration.
+
+These modules do not fetch data, adopt account protection rules, place orders, or invoke an LLM. They do not replace the v2.1.0 market demo or claim to package the private dashboard. The caller must supply coherent completed data, RS and market context; the synthetic wrapper is not a production feed validator. See [scope and tests](docs/WATCH_REVIEW.md).
