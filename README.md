@@ -28,6 +28,27 @@
 - **선택:** 실행 바로가기에서 홈 → 종목·계좌 상세로 이어지는 대시보드를 만들었습니다.
 - **확인:** 같은 날 반복 실행하면 결과를 재사용하고, 갱신 실패 시 이전 자료의 날짜를 표시하도록 했습니다.
 
+### 5. 분석한 뒤 무엇을 할 것인가
+
+- **문제:** 기업 보고서를 읽어도 보유 목적·반증·대응 조건과 계좌 영향을 다시 연결해야 했습니다.
+- **선택:** 논의와 미정을 기록하고, 특정 계획 버전과 계산 가정을 고정해 Python으로 대응 전후를 비교했습니다.
+- **공개:** v2.3.0에는 이 중 순수 계산과 합성 예제를 추가했습니다. 작업대 화면과 개인 기록은 포함하지 않습니다.
+
+## 작업대를 사용하는 순서
+
+```mermaid
+flowchart LR
+    A[자료 날짜 확인] --> B[업종·후보 또는 보유종목]
+    B --> C[차트·재무 확인]
+    C --> D[기업 분석·후속 논의]
+    D --> E[판단·미정·계획 초안 저장]
+    E --> F[명시 가정으로 계좌 영향 계산]
+    F --> G[사용자 검토·버전 채택]
+    G --> D
+```
+
+계산용 시나리오는 에이전트가 확인된 조건으로 정리하고 중요한 미정만 물어봅니다. 계획 저장·가정 계산·사용자 채택·실제 체결은 서로 다릅니다. [버튼별 사용 안내와 역할 도해](docs/WORKBENCH_WORKFLOW.md)는 비공개 작업대의 전체 흐름을 설명하며, 공개 저장소의 제공 기능 목록과 구분합니다.
+
 ## AI와 작업한 방식
 
 저는 필요한 기능과 우선순위, 대안 중 무엇을 선택할지 정했습니다. AI는 대안 조사, 구현, 계산 대조와 테스트를 수행했습니다.
@@ -41,13 +62,13 @@
 - 미래 가격을 추가해도 과거 기준선이 바뀌지 않는가
 - 계산 중 원본 자료가 바뀌지 않는가
 
-기존 [v2.2.0 검증 기록](docs/VALIDATION_V2_2_0.md)에는 공개 테스트 332개와 가상 자료 데모 3개를 확인한 결과가 있습니다. 투자 수익률이나 시간 절감 효과는 아직 측정하지 않았습니다.
+이번 [v2.3.0 검증](docs/VALIDATION_V2_3_0.md)에서 기존 엔진을 포함한 369개 테스트가 통과했습니다. 독립 검수에서 발견한 종목 간 현금의 시간 순서 문제를 수정했고, 새 계획·계좌 예제는 네트워크를 차단한 상태에서도 실행했습니다. 투자 수익률이나 시간 절감 효과는 아직 측정하지 않았습니다.
 
 ## 공개 범위
 
-v2.2.0에는 업종·종목 선별 계산, 관찰·진입 구분, 보유 위험 계산과 가상 자료 데모가 있습니다. 계산은 Python으로 수행하며 공개 데모는 LLM을 호출하지 않습니다.
+현재 버전은 **v2.3.0**입니다. v2.2.0부터 제공한 업종·종목 선별 계산, 관찰·진입 구분, 보유 위험 계산과 가상 자료 데모를 유지하고, **특정 계획·계좌·환율·체결 가정을 고정한 시나리오 계산**을 추가했습니다. 계산은 Python으로 수행하며 공개 데모는 LLM을 호출하지 않습니다. [새 계산 범위·합성 수치](docs/PORTFOLIO_SCENARIOS.md) · [10월 1일 이후 반영표](docs/PUBLIC_UPDATE_2026_10_05.md).
 
-거래활동 증가·가속 계산과 대시보드·대화형 차트는 비공개입니다. 기존 공개 공급자 연결은 유지합니다. Lightweight Charts는 차트 표시용이며 TradingView 시세·계정 연결은 포함하지 않습니다. 거래활동 지표는 실제 자금 순유입을 측정한 값은 아닙니다.
+거래활동 증가·가속 계산과 대시보드·대화형 차트·분석 MCP·개인 기록 저장소는 비공개입니다. 새 공개 작도 코드는 고정 좌표 계산이며 편집 화면이 아닙니다. 기존 공개 공급자 연결은 유지합니다. Lightweight Charts는 차트 표시용이며 TradingView 시세·계정 연결은 포함하지 않습니다. 거래활동 지표는 실제 자금 순유입을 측정한 값은 아닙니다.
 
 ## 직접 실행해 보기
 
@@ -64,6 +85,7 @@ Windows PowerShell:
 
 ```powershell
 .venv/Scripts/python.exe -m pip install -e .
+.venv/Scripts/python.exe examples/portfolio_scenario_demo.py --output ../synthetic-portfolio-scenario
 .venv/Scripts/python.exe examples/watch_review_demo.py --output ../synthetic-watch-review
 .venv/Scripts/python.exe examples/market_review_demo.py --output ../synthetic-market-review
 .venv/Scripts/python.exe examples/demo.py --instance ../invest-agent-demo
@@ -71,7 +93,7 @@ Windows PowerShell:
 
 macOS / Linux에서는 `.venv/Scripts/python.exe`를 `.venv/bin/python`으로 바꿉니다. 설치에는 다운로드가 필요할 수 있지만, 설치 후 데모에는 네트워크·API 키·실제 계좌가 필요하지 않습니다. 출력은 저장소 밖의 새 폴더에 만듭니다.
 
-관찰·시장 데모는 각 출력 폴더의 `report.html`, 계좌 데모는 `reports/`에서 결과를 봅니다. 입력·출력 파일과 제한은 [관찰·진입 데모](docs/WATCH_REVIEW.md), [시장 데모](docs/SYNTHETIC_MARKET_REVIEW.md), [계좌 기능](TRADING.md)을 참고하세요. 실제 입력과 생성 결과는 저장소 밖의 비공개 폴더에 보관합니다.
+시나리오·관찰·시장 데모는 각 출력 폴더의 `report.html`, 계좌 데모는 `reports/`에서 결과를 봅니다. 입력·출력 파일과 제한은 [관찰·진입 데모](docs/WATCH_REVIEW.md), [시장 데모](docs/SYNTHETIC_MARKET_REVIEW.md), [계좌 기능](TRADING.md)을 참고하세요. 실제 입력과 생성 결과는 저장소 밖의 비공개 폴더에 보관합니다.
 
 </details>
 
@@ -85,12 +107,12 @@ python -m unittest discover -s tests -v
 python -B scripts/check_git_publication.py --repo .
 ```
 
-공개 검증은 가상 자료와 모의 공급자를 사용합니다. 실계좌·주문·전체 시장 장기 운영을 검증한 결과는 아닙니다. [검증 범위](docs/VALIDATION_V2_2_0.md) · [공개 파일 검사](PUBLICATION.md)
+공개 검증은 가상 자료와 모의 공급자를 사용합니다. 실계좌·주문·전체 시장 장기 운영을 검증한 결과는 아닙니다. [검증 범위](docs/VALIDATION_V2_3_0.md) · [공개 파일 검사](PUBLICATION.md)
 
 </details>
 
-## 다음 작업
+## 다음 확인
 
-기업 공식 자료와 재무 계산을 연결하고, 같은 자료를 사용했을 때 AI 분석의 오류와 누락이 어떻게 달라지는지 비교할 계획입니다.
+비공개 작업대의 공식 자료·재무·분석 연결은 구현됐지만 일부 재무 지원과 실제 계좌 입력 검증은 남아 있습니다. 같은 자료를 사용했을 때 분석 오류와 누락, 판단 기록의 재사용이 어떻게 달라지는지 확인하려 합니다. 합성 계산 검증을 투자 성과로 제시하지 않습니다.
 
 [변경 내역](CHANGELOG.md) · [코드 구조](ARCHITECTURE.md)

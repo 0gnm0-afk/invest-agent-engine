@@ -48,3 +48,9 @@ config·DB·백업을 임의 실행/복원하는 서비스로 사용하지 않�
 - `research/synthetic_watch.py` and `research/watch_review.py`: invented inputs and an offline HTML/JSON demonstration.
 
 These modules do not fetch data, adopt account protection rules, place orders, or invoke an LLM. They do not replace the v2.1.0 market demo or claim to package the private dashboard. The caller must supply coherent completed data, RS and market context; the synthetic wrapper is not a production feed validator. See [scope and tests](docs/WATCH_REVIEW.md).
+
+## v2.3.0 explicit scenario calculations
+
+`invest_agent.scenarios` is additive and separate from `trading.scenarios`. Its five modules provide Decimal portfolio arithmetic, explicit condition evaluation, frozen drawing geometry and conversion of caller-supplied collaboration records. Data collection, UI, database, MCP authentication and plan adoption stay outside this package.
+
+The caller supplies verified account identity, timestamps, price basis, exact plan version, FX/cost/fill assumptions and any RPC callable. Hash validation is not authentication. Missing components cannot produce a complete total. The example uses synthetic hypothetical records and writes only to a new directory outside the checkout. See [contracts and limits](docs/PORTFOLIO_SCENARIOS.md).

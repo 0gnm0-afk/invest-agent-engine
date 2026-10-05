@@ -1,0 +1,29 @@
+{
+ "snapshot": {
+  "id":"synthetic-account-1","as_of":"2026-10-05T06:00:00+09:00","evaluated_at":"2026-10-05T07:00:00+09:00","max_age_seconds":86400,"base_currency":"KRW","complete":true,"issues":[],
+  "fx":{"KRW":{"rate":"1","as_of":"2026-10-05T06:00:00+09:00"},"USD":{"rate":"1000","as_of":"2026-10-05T06:00:00+09:00"}},
+  "positions":[
+   {"id":"demo/KR","account":"합성계좌","market":"KR","symbol":"가상한국","currency":"KRW","quantity":"10","price":"1000","price_as_of":"2026-10-05T06:00:00+09:00","price_basis":"raw","source_ref":"fixture:KR"},
+   {"id":"demo/US","account":"합성계좌","market":"US","symbol":"ALPHA","currency":"USD","quantity":"10","price":"100","price_as_of":"2026-10-05T06:00:00+09:00","price_basis":"raw","source_ref":"fixture:US"}
+  ],
+  "cash":[
+   {"id":"cash/KRW","account":"합성계좌","kind":"cash","currency":"KRW","amount":"10000","disjoint":true,"source_ref":"fixture:cash"},
+   {"id":"cash/USD","account":"합성계좌","kind":"cash","currency":"USD","amount":"100","disjoint":true,"source_ref":"fixture:cash"},
+   {"id":"cma/KRW","account":"합성계좌","kind":"cma","currency":"KRW","amount":"5000","disjoint":true,"source_ref":"fixture:cma"}
+  ]
+ },
+ "scenario": {
+  "id":"synthetic-scenario-1","version":1,"horizon":"2026-11-05T16:00:00+09:00","fx_to_base":{"KRW":"1","USD":"1100"},
+  "prices":{"demo/KR":{"price":"800","horizon":"2026-11-05T16:00:00+09:00","source_ref":"synthetic-plan-KR-v1"},"demo/US":{"price":"80","horizon":"2026-11-05T16:00:00+09:00","source_ref":"synthetic-plan-US-v1"}},
+  "plan_refs":[{"id":"synthetic-plan-US","version":1}],
+  "response": {
+   "cost_policy":"excluded",
+   "path":[{"id":"close-1","at":"2026-10-06T06:00:00+09:00","observations":{"demo/US":{"snapshot_id":"synthetic-close-1","price":"89","currency":"USD","frame":"1d","price_basis":"raw","complete":true,"session":"2026-10-05","expected_session":"2026-10-05","as_of":"2026-10-06T06:00:00+09:00","max_age_seconds":86400}}}],
+   "steps":[{"id":"sell-half","position_id":"demo/US","plan_ref":{"id":"synthetic-plan-US","version":1},"allocated_quantity":"10","path_id":"close-1","side":"sell",
+    "condition":{"id":"close-below-90","kind":"price","threshold":"90","currency":"USD","operator":"lt","frame":"1d","price_basis":"raw"},
+    "quantity":{"basis":"initial","value":"0.5"},
+    "fill":{"at":"2026-10-06T22:30:00+09:00","price":"90","currency":"USD","fee":null,"assumption":"가상 예시: 다음 세션 90.00 USD 체결을 별도로 가정"}}
+   ]
+  }
+ }
+}
