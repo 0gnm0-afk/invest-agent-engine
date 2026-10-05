@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "invest-agent-engine"
-version = "2.3.0"
+version = "2.4.0"
 description = "Model-independent personal investment analysis engine"
 requires-python = ">=3.12"
 dependencies = [
@@ -17,8 +17,12 @@ dependencies = [
   "markdown-it-py>=4,<5",
 ]
 
+[project.optional-dependencies]
+mcp = ["mcp>=1.29,<2"]
+
 [project.scripts]
 invest-agent = "invest_agent.cli:main"
+invest-workbench-mcp = "invest_agent.workbench_mcp.server:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
