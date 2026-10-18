@@ -1,0 +1,94 @@
+{
+  "id": "MA-WARN-20261016-v2-15EARLY",
+  "seed": 2026101602,
+  "threshold_decision": "No universally validated substitute for individual-stock peak drawdown thresholds was established in the reviewed primary sources. Keep10% and20% as operational loss magnitudes, NOT firm bear-market/crash definitions.15% is a pre-fixed secondary sensitivity; it cannot replace primary thresholds after inspection.",
+  "targets": [
+    0.15
+  ],
+  "secondary_target": 0.15,
+  "label_basis": "adjusted closing price / frozen event peak closing price -1. Intraday extrema used for excursions, not primary threshold hits.",
+  "horizons": [
+    20,
+    60
+  ],
+  "primary_horizon": 60,
+  "event_detection_horizon": 126,
+  "warmup_start": "2008-01-01",
+  "study_start": "2010-01-01",
+  "train_end": "2016-12-31",
+  "validation_end": "2020-12-31",
+  "data_end": "2026-09-30",
+  "peak_lookback": 63,
+  "peak_sensitivity_lookback": 126,
+  "events": "Watch an observed63-session record closing high. New equal/higher closes update peak/date until first strictly lower close starts an underwater excursion. Freeze that reference price during the excursion. Reset only at a close>=reference peak (recovered), or a new63-session record close after the old peak has aged>=63 sessions (lower-local-high reset). Do NOT reset merely because a time horizon expires or a signal repeats. Lower-local-high legs share a longer running-high parent_id until that high recovers; never claim independent legs. Each signal contributes at most its first new onset per excursion. Flat/new-high/short false-alarm excursions are retained. No MA alignment, return momentum, adopted trades, operating exclusions or strategy candidates select events.",
+  "causality": "All online peaks, events and indicators use data through the completed close only. Retrospective tables condition on realized target-hit events solely to describe signal chronology; no such labels feed signal selection or replay decisions.",
+  "outcomes": "Target success is the FIRST target close of the same frozen-peak excursion, before its reset, within20/60 sessions after the signal. A signal on/after the first target close is ineligible for warning success even if price later rebounds. Recall denominator: distinct excursions first hitting target within126 sessions of peak; numerator: first signal strictly BEFORE hit. Executable recall also requires immediate next-session open>target price and tradeable OHLCV, with execution no later than the hit close. Recovery/5% rebound/excursions additionally use the fixed forward window and may coexist with a target hit.",
+  "data_eligibility": "Peak+126+60 observed sessions must be fully inside its temporal split. Missing/invalid sessions within indicator/label support are flagged and excluded with counts; long calendar gaps are RETAINED and separately flagged, never silently removed. Signals are not censored merely because they turn out bad.",
+  "sample": "For each market independently, use raw audited SavedHistory common-share listing universe, NOT operating SavedMarketHistories exclusions. Exclude all800 tickers inspected by prior MA-EXIT4 research (identifiers only). Main panel: select600 remaining symbols by SHA256('MA-WARN-v1|market:symbol'). Supplement ONLY: add current market-cap top100 symbols not previously inspected, if available in the pinned2026-10-16 snapshot. Extra current-large-cap symbols never enter main selection or primary results. Current large-cap tag is a retrospective sensitivity ONLY, not historical size eligibility. It cannot establish historical large-cap predictive validity.",
+  "subject_split": "SHA256('MA-WARN-HOLDOUT-v1|market:symbol') mod10<3 reserves the entire symbol for final2021+ evaluation; all other symbols supply2010-2016 discovery and2017-2020 validation. No reserved-symbol signal outcomes enter selection. Shared market eras and analyst exposure to prior study mean this is not pristine prospective validation.",
+  "features": "SMA5/10/20; slopes SMA(t)-SMA(t-3); completed-close log-return standard deviation over20 sessions; no MA60 eligibility. MA200 position is descriptive only. Market state uses a development-symbol equal-weight daily-return index and its200-session mean plus20-session mean direction, separately for KR/US; not an official index.",
+  "base_conditions": [
+    "close_below_ma5",
+    "close_below_ma10",
+    "close_below_ma20",
+    "ma5_below_ma10",
+    "ma5_below_ma20",
+    "ma10_below_ma20",
+    "ma5_slope_nonpositive",
+    "ma10_slope_nonpositive",
+    "ma20_slope_nonpositive",
+    "close_below_ma20_and_ma20_down",
+    "ma5_below_ma10_and_ma20_down"
+  ],
+  "confirmations": [
+    1,
+    2
+  ],
+  "onset_state": "For1 close, new onset is condition false->true. For2 closes, onset occurs when two consecutive true closes first complete. Primary analyses take only first NEW onset while underwater in an excursion. A condition already true at its start is left-censored and reported separately in first-state diagnostics; repeated onset counts are not independent events.",
+  "execution": "Immediate next observed session open is a feasible-price proxy only if volume>0 and high>low; else missing/unexecutable, NOT fabricated at last close. Report flagged long calendar gap and targets already passed at the next open. No order/notification or trading strategy P&L is simulated.",
+  "matching": "Within each market and split only, controls are pre-scheduled risk-set rows at excursion offsets1,6,11,... with candidate confirmation state FALSE. Controls may develop the signal later; do not condition on future absence. Exclude same symbol/excursion. Exact quarter, market regime, age bucket(1-5/6-20/21-60/61+) and training-only volatility quintile; drawdown caliper0.5pp, volatility ratio[0.8,1.25], market20-session return caliper3pp. Candidate bank at most512 rows per coarse covariate bucket, sampled with fixed hash independently of labels. Select up to5 nearest different-excursion controls by covariate distance; permit reuse across treated cases and disclose it. Only eligible pre-target rows compare. Match indices must not depend on outcome columns.",
+  "confidence": "2000 symbol-cluster resamples and circular4-quarter block resamples for probabilities/recall. Matched uplift uses linearized wild symbol-cluster multipliers including both treated and reused control symbols, plus4-quarter block contrasts. Separate marginal uncertainty, not a perfect joint-correlation guarantee. Final fixed early/exit candidates: Holm correction within each market for2 primary matched-uplift hypotheses. Exploratory22-signal tables are not familywise significance claims.",
+  "limitations_fixed": [
+    "current-survivor universe; delisted histories absent",
+    "historical market-cap membership unavailable; current top100 is not point-in-time large-cap research",
+    "reused calendar eras; analyst prior exposure and common shocks",
+    "daily bars cannot prove order book fills; raw adjusted prices are not dividend-reinvested total returns",
+    "matching demonstrates conditional association, not causality or calibrated individual-stock probabilities",
+    "long drawdown parent dependence and data availability attrition"
+  ],
+  "primary_target": 0.15,
+  "secondary_targets": [
+    0.1,
+    0.2
+  ],
+  "revision_reason": "Explicit user steering after v1: identify early warnings of first15% drawdown, especially current large-cap stocks; no claim that losses cannot exceed15%. Preserve v1 unchanged.",
+  "data_source": "runtime/ma-warning-20261016-v1; reuse verified causal events/indicators, no new trade-rule eligibility",
+  "candidate_kinds": [
+    "first",
+    "first_state"
+  ],
+  "candidate_count_per_market_cohort": 44,
+  "focus": "early identification of >=15% first drawdown; original last-exit role is secondary, no strategy allocation or return optimization",
+  "validation_independence": "15% forward outcomes already existed as v1 sensitivity; v2 is explicitly post-hoc re-selection at human request, not pristine independent confirmation. No additional adjustment after v2 freeze.",
+  "cohort_priority": [
+    "current_largecap",
+    "core"
+  ],
+  "current_largecap": "Current snapshot top100 tag, previously examined800 removed, extra symbols supplement only in v1; foreground separately here. NOT historical point-in-time large-cap membership; report small sample/common support.",
+  "selection15": {
+    "min_signals": 100,
+    "min_symbols": 20,
+    "min_match_coverage": 0.5,
+    "max_median_signal_dd": 0.05,
+    "max_median_exec_dd": 0.06,
+    "min_precision": 0.2,
+    "min_recall": 0.6,
+    "min_executable_recall": 0.55,
+    "min_uplift": 0.03,
+    "require_train_uplift_positive": true,
+    "require_validation_both_ci_lower_positive": true
+  },
+  "ranking15": "Restrict to timing<=6% median execution drawdown and basic sample where possible; rank qualified candidates by validation score .35*recall+.30*precision+.20*clip(uplift/.10,-1,1)+.15*(1-execDD/.15). Freeze up to3 distinct condition/kind candidates, qualified first. If none qualify mark exploratory only. Final validation requires same gates and Holm-adjusted positive uplift for3 candidates within EACH market and cohort. Never pool KR/US or substitute final-test winner.",
+  "matching15": "Same v1 causal matching specification retained; full common-support limitation reported, no relaxing calipers to improve result.",
+  "event15": "First close at or below85% of fixed observed peak. Larger drops remain included, never discard events because they later fall more than15%. No cap or truncation of actual price path at15%."
+}

@@ -48,3 +48,12 @@ secrets.toml
 build/
 dist/
 *.map
+
+# Public demo state and generated records
+**/runtime/
+**/judgments/
+**/secrets/
+.env*
+!*.example
+*.sqlite3
+*.dpapi

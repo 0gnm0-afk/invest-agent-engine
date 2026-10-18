@@ -19,6 +19,7 @@ dependencies = [
 
 [project.optional-dependencies]
 mcp = ["mcp>=1.29,<2"]
+workbench = ["mcp>=1.29,<2", "beautifulsoup4>=4.12,<5", "numpy>=1.26,<3", "pandas>=2.2,<4"]
 
 [project.scripts]
 invest-agent = "invest_agent.cli:main"

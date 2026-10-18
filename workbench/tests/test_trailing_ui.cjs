@@ -1,0 +1,30 @@
+'use strict';
+const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict');global.window={};
+vm.runInThisContext(fs.readFileSync('dashboard/format.js','utf8'));global.WorkbenchFormat=window.WorkbenchFormat;
+vm.runInThisContext(fs.readFileSync('dashboard/trailing.js','utf8'));
+const p={active:true,line:263150,currency:'KRW',prices:[{date:'2026-10-01',close:270000},{date:'2026-10-02',close:265000}],history:[{date:'2026-10-01',line:260000}]};
+let priceLine,crosshair,config;
+global.LightweightCharts={LineStyle:{Dotted:1}};
+const ref={createPriceLine:x=>priceLine=x};
+global.WorkbenchCharts={create:(plot,series,options)=>{config=series;options.onReady({subscribeCrosshairMove:cb=>crosshair=cb},[{ref}]);}};
+const legend={innerHTML:''};window.WorkbenchTrailing.mountChart({},legend,p);
+assert.equal(config.length,1);assert.equal(config[0].options.title,'');assert.deepEqual(priceLine,{price:263150,color:'#f5b85b',lineWidth:2,lineStyle:1,axisLabelVisible:true,title:''});
+assert.match(legend.innerHTML,/종가 <strong>265,000/);assert.match(legend.innerHTML,/최종 트레일링 <strong>263,150/);
+crosshair({time:'2026-10-01',seriesData:new Map([[ref,{value:270000}]])});assert.match(legend.innerHTML,/270,000/);assert.match(legend.innerHTML,/263,150/);
+crosshair({});assert.match(legend.innerHTML,/265,000/);
+assert.deepEqual(config[0].options.autoscaleInfoProvider(()=>({priceRange:{minValue:265000,maxValue:270000}})).priceRange,{minValue:263150,maxValue:270000});
+priceLine=null;window.WorkbenchTrailing.mountChart({},legend,{...p,active:false});assert.equal(priceLine,null);assert.match(legend.innerHTML,/최종 트레일링/);
+const app=fs.readFileSync('dashboard/app.js','utf8');assert.ok(app.includes("page==='risk'"));assert.ok(!app.includes('기존 위험관리'));
+assert.ok(fs.readFileSync('dashboard/trailing.js','utf8').includes('stock-price-legend trailing-price-legend'));
+console.log('trailing UI: full-width latest dotted price line, axis numbers, top-left legend, hover/reset, missing state and scale PASS');
+
+(async()=>{
+ global.location={hash:'#risk'};
+ global.fetch=async()=>({ok:true,json:async()=>({positions:[],events:[{date:'2026-10-05',symbol:'S',kind:'ma10',policy:'high95-approach-v2',reason:'10일선 0.5 ATR 접근',close:101,threshold:100,alert_threshold:102,currency:'USD',account:'a'}]})});
+ const host={innerHTML:'',isConnected:true};
+ await window.WorkbenchTrailing.mount(host);
+ assert.match(host.innerHTML,/트레일링\/5일선\/10일선/);
+ assert.match(host.innerHTML,/MA10 0.5 ATR 접근·이탈/);
+ assert.match(host.innerHTML,/알림 기준 102.00/);
+ console.log('three-line approach explanation and MA10 event display PASS');
+})().catch(error=>{console.error(error);process.exitCode=1;});

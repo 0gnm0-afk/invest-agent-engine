@@ -1,0 +1,18 @@
+{
+  "contract_version": "collaboration.v1",
+  "synthetic": true,
+  "discussion": {
+    "title": "합성 회사의 보유 이유 논의",
+    "body": "사용자: 성장 논리가 유지되면 보유하되 하락 시 절반 축소를 검토하고 싶다. 에이전트: 어떤 봉의 확인가격과 어떤 물량의 절반인지 아직 정하지 않았다.",
+    "sections": {"business_evidence": "분석 가설: 신규 제품의 반복 매출 증가. 실제 기업 사실 아님.", "judgment_invalidation": "성장 논리 훼손은 정성 재검토 조건.", "purpose_plan": "보유 목적 논의 중", "responses": "하락 시 절반 축소 검토. 판정 시점과 수량 기준 미정."},
+    "open_questions": ["완료 일봉 기준인지, 최초 또는 잔여 물량의 절반인지?"],
+    "references": [{"kind": "utterance", "reference": "synthetic-session:turn-1", "text": "성장 논리가 유지되면 보유하되 하락 시 절반 축소를 검토하고 싶다.", "speaker": "user"}]
+  },
+  "plan": {
+    "title": "합성 USD 조건 대응 대안", "purpose": "매매", "account_alias": "synthetic-us",
+    "allocation": {"quantity": "10", "basis": "units"},
+    "conditions": [{"id": "c1", "kind": "price", "statement": "완료 일봉 종가가 90 USD 미만이면 최초 배정 물량 절반 축소", "action": "reduce", "evaluation": "daily_close", "operator": "lt", "price": "90", "currency": "USD", "quantity": {"value": "0.5", "basis": "initial_fraction"}, "priority": 1, "execution_price": "89", "drawing_ref": null}, {"id": "c2", "kind": "qualitative", "statement": "성장 논리 훼손 시 재검토", "action": "review", "evaluation": null, "operator": null, "price": null, "currency": null, "quantity": {"value": null, "basis": null}, "priority": 2, "execution_price": null, "drawing_ref": null}],
+    "scenarios": [{"id": "s1", "evaluation_at": "2026-10-30", "assumed_price": "80", "currency": "USD", "response": "plan", "price_path": [{"at": "2026-10-06", "price": "89"}, {"at": "2026-10-30", "price": "80"}], "fx_to_base": null, "fx_as_of": null, "cost": null}]
+  },
+  "risk_review": {"title": "합성 계산 미정 사항", "body": "FX와 비용은 계좌 논의에서 보완. 실제 최대손실 아님.", "calculation": null, "references": []}
+}

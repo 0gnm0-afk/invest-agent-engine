@@ -1,0 +1,9 @@
+# Versions used for the public candidate verification (Python 3.12).
+numpy==2.5.1
+pandas==3.0.5
+matplotlib==3.11.1
+beautifulsoup4==4.15.0
+exchange-calendars==4.13.2
+mcp==1.29.0
+markdown-it-py==4.2.0
+requests==2.34.2
