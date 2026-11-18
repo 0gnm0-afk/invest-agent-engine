@@ -1,3 +1,6 @@
+> **이 저장소는 보관(Archive)되었습니다.** 작업은 새 워크벤치 [invest-agent-workbench](https://github.com/0gnm0-afk/invest-agent-workbench)에서 이어집니다.
+> **Archived.** Development continues in [invest-agent-workbench](https://github.com/0gnm0-afk/invest-agent-workbench).
+
 # 투자에이전트 + Invest Agent Workbench
 
 **같은 근거를 보며 사람과 AI가 투자 가설을 검토하는 로컬 작업대.**
